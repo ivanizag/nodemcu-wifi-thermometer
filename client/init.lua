@@ -1,10 +1,11 @@
-if gpio.read(3) == 0 then
-  print("FLASH button is pushed. init.lua skipped.")
-else
-  print("Booting (had to press FLASH button to skip boot).")
-  print("To skip boot rename the init file and reset. Rename with:")
-  print("  file.rename('init.lua','init.old')")
+-- Safe init based on https://bigdanzblog.wordpress.com/2015/04/24/esp8266-nodemcu-interrupting-init-lua-during-boot/
 
+function startup()
+  if a == 1 then
+    print('startup aborted')
+    return
+  end
+  print("Booting.")
   dofile('DS18B20.lua')
 
   serverIp = "192.168.1.101"
@@ -13,3 +14,9 @@ else
   sensorVCCPin = 1
   ds18b20_read_send_sleep(serverIp, serverPort, sensorDQPin, sensorVCCPin)
 end
+
+a = 0
+print("To skip boot type within 4 seconds:")
+print("  a=1")
+
+tmr.alarm(0, 4000, 0, startup)

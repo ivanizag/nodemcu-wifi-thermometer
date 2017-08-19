@@ -12,9 +12,9 @@ Three wires are used for 1-wire:
 - Vcc goes to NodeMCU pin D1 to turn the probe on just when needed
 - DQ goes to NodeMCU pin D2
 
-Usually a 4,7K resistor has to be connected from Ground to DQ on the DS18B20. My probes came with a small board already providing it. Many DS18B20 can be plugged serially to the same pins. The Lua program on the board will detect them and send all the readings.
+Usually a 4.7K resistor has to be connected from Ground to DQ on the DS18B20. My probes came with a small board already providing it. Many DS18B20 can be plugged serially to the same pins. The Lua program on the board will detect them and send all the readings.
 
-Another wire connets the NodeMCU reset and D0 pins. This is required to use the ESP8266 sleep feature. Remember to unwire reset when flashing the NodeMCU.
+Another wire connects the NodeMCU reset and D0 pins. This is required to use the ESP8266 sleep feature. Remember to unwire reset when flashing the NodeMCU.
 
 I am providing power from the USB connector.
 
@@ -42,7 +42,7 @@ The command I use in Linux is:
 ```
 screen /dev/ttyUSB0 9600
 ```
-[Exit with Ctrl-A K y]
+[Exit with Ctrl-A k y]
 
 Configuring Wifi in immediate mode is convenient. You can use:
 ```
@@ -61,17 +61,16 @@ There are two files to upload:
 
 To upload the code on Linux I use the luatool https://github.com/4refr0nt/luatool, with the following commands:
 ```
-../luatool/luatool/luatool.py --port /dev/ttyUSB0 --src init.lua --dest init.lua --verbose
-../luatool/luatool/luatool.py --port /dev/ttyUSB0 --src DS18B20.lua --dest DS18B20.lua --verbose
+../../luatool/luatool/luatool.py --port /dev/ttyUSB0 --src init.lua --dest init.lua --verbose
+../../luatool/luatool/luatool.py --port /dev/ttyUSB0 --src DS18B20.lua --dest DS18B20.lua --verbose
 ```
 
 To stop the reboot-sleep cycle, run in the terminal connected to the board:
 
 ```
-file.remove('init.old')
-file.rename('init.lua','init.old')
+a=1
 ```
-If this doesn't work. Erase the flash and rewrite the firmware.
+If this doesn't work. Erase the flash and rewrite the firmware. A way to get into flash mode is to remove the wire from D0 to RST and wait for reboot time. Reboot won't work but will put the board in flashable ready state. 
 
 ## Run the server
 Edit server.js to put the port and ip of the statsD server.

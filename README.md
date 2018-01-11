@@ -50,7 +50,7 @@ wifi.setmode(wifi.STATION)
 wifi.sta.config("WIFI_NAME", "WIFI_PASSWORD")
 print(wifi.sta.getip())
 ```
-You should get an IP of your home network.
+You should get an IP address of your home network.
 
 ## Upload the Lua code to the sensor.
 Edit init.lua to configure the server ip and port as well as the sleep time between reads.

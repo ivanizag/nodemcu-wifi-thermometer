@@ -73,7 +73,7 @@ a=1
 If this doesn't work. Erase the flash and rewrite the firmware. A way to get into flash mode is to remove the wire from D0 to RST and wait for reboot time. Reboot won't work but will put the board in flashable ready state. 
 
 ## Run the server
-Edit server.js to put the port and ip of the statsD server.
+Edit server.js to put the port and IP address of the statsD server.
 Edit server.js to change the mapping of sensors to graphite keys.
 
 To launch, execute in the server folder:
